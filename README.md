@@ -21,25 +21,6 @@ Every topic is learned through:
 	4. Fixing it
 	5. Documenting what I learned
 
-Repository Structure
-DevOps-Apprenticeship/
-│
-├── Day-001/
-├── Day-002/
-├── Day-003/
-│
-├── Linux/
-├── Git/
-├── Docker/
-├── Jenkins/
-├── AWS/
-├── Terraform/
-├── Kubernetes/
-│
-├── Projects/
-└── Resources/
-
-
 Progress Tracker
 Stage	Status
 Linux	⏳ In Progress

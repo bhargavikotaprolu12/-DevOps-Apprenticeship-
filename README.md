@@ -1,4 +1,3 @@
-````markdown
 # 🚀 DevOps Apprenticeship
 
 ## 📖 About This Repository
@@ -13,7 +12,7 @@ Every day includes:
 
 - 📚 Theory notes
 - 💻 Hands-on labs
-- 🐳 Docker, 🐧 Linux, 🌿 Git, ☁️ AWS, 🌍 Terraform, ☸️ Kubernetes practice
+- 🐳 Docker, Linux, Git, AWS,Terraform, Kubernetes practice
 - 🔧 Production-style troubleshooting exercises
 - 🎯 Interview preparation
 - 📝 Personal reflections and lessons learned
@@ -60,9 +59,15 @@ DevOps-Apprenticeship/
 │
 ├── Projects/
 └── Resources/
-````
+````markdown
+
+- Docker, Linux, Git,  AWS,  Terraform,  Kubernetes practice
+- 🔧 Production-style troubleshooting exercises
+- 🎯 Interview preparation
+- 📝 Personal reflections and lessons learned
 
 ---
+
 
 ## 📈 Progress Tracker
 

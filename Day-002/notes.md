@@ -652,12 +652,5 @@ Docker Image Cache is Docker's local storage for downloaded images and image lay
 - Docker stores downloaded images in a local image cache.
 - Images are downloaded only when required and reused for future containers.
 
-Docker Hub (Registry)
-        │
-        ▼
-     nginx (Repository)
-        │
- ┌──────┼────────┐
- │      │        │
-1.24   1.25   latest (Tags)
+
 

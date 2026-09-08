@@ -59,15 +59,12 @@ DevOps-Apprenticeship/
 │
 ├── Projects/
 └── Resources/
-````markdown
+
 
 - Docker, Linux, Git,  AWS,  Terraform,  Kubernetes practice
 - 🔧 Production-style troubleshooting exercises
 - 🎯 Interview preparation
 - 📝 Personal reflections and lessons learned
-
----
-
 
 ## 📈 Progress Tracker
 
@@ -83,13 +80,10 @@ DevOps-Apprenticeship/
 | 📊 Monitoring | ⏳ Pending        |
 | 🔐 DevSecOps  | ⏳ Pending        |
 
----
 
 ## 🎯 Current Goal
 
 Become a **production-ready DevOps Engineer** by consistently practicing real-world labs, automation, cloud infrastructure, and troubleshooting.
-
----
 
 ## 📅 Daily Progress
 
@@ -103,15 +97,11 @@ Each daily folder contains:
 * 🎤 Interview questions
 * 📸 Supporting screenshots (when relevant)
 
----
-
 ## ⭐ Thank You
 
 Thank you for visiting this repository.
 
 If you're following a similar DevOps journey, feel free to explore the repository and learn alongside me.
 
-```
-```
 
 

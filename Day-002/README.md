@@ -1,64 +1,163 @@
-# Day 002 - Docker Architecture & Image Lifecycle
+## Mission
 
+Today you'll answer one question:
 
-## 🎯 Mission
+> **"What exactly happens when I run `docker run nginx`?"**
 
-Understand what happens internally when `docker run nginx` is executed.
+By the end of today, you should be able to explain every major step from typing the command until the container starts.
 
-##  Real-World Scenario
-
-A developer asks:
-"What actually happens after I type `docker run nginx`?"
-
-Today's goal was to understand every step from the Docker Client receiving the command to the container starting.
+**If you cannot explain the journey, today's mission is incomplete.**
 
 ---
 
-## 🏭 Production Relevance
+## Real-World Scenario
 
-Understanding the Docker request flow helps troubleshoot common issues such as:
+You're the only DevOps Engineer.
 
-- Images not downloading
-- Containers failing to start
-- Docker Daemon connection errors
-- Image caching issues
-- Slow container startup
+A developer says:
 
-## 📚 Topics Covered
+> **"I typed `docker run nginx`, but I have no idea what actually happened."**
 
-- Docker Client
-- Docker Daemon
-- Docker Engine
-- Docker Hub
-- Docker Registry
-- Image Layers
-- Container Lifecycle
-- docker create
-- docker start
-- docker run
-- docker stop
-- docker rm
+Your job is to explain every step.
+
+Today's learning is designed to prepare you to do exactly that.
 
 ---
 
-## 🧪 Hands-on Labs
+## Topics Learned
 
-- Explored Docker images
-- Pulled images from Docker Hub
-- Created containers
-- Started containers
-- Stopped containers
-- Removed containers
-- Compared `docker create` vs `docker run`
-- Inspected Docker images
-- Viewed Docker image history
+### 1. What Happens Internally When You Run a Docker Command?
+
+Understanding:
+
+* Docker Client
+* Docker Daemon
+* Docker Engine
+* REST API
+* Unix Socket
+* Image lookup
+* Container creation
+* Namespaces
+* cgroups
+* Networking
+* Volumes
+* Main process (PID 1)
+
+### 2. Where Do Docker Images Come From?
+
+Understanding:
+
+* Docker Registry
+* Docker Hub
+* Repository
+* Tags
+* Image Cache
+
+### 3. What Is Inside a Docker Image?
+
+Understanding:
+
+* Image Layers
+* Read-only Layers
+* Writable Container Layer
+* Copy-on-Write
+* Layer Caching
+* Image inspection
 
 ---
 
-## ✅ Key Takeaways
+# Hands-on Lab
 
-- Docker Client communicates with Docker Daemon.
-- Images are read-only templates.
-- Containers are running instances of images.
-- `docker run` performs multiple operations.
-- Images are downloaded only once unless updated.
+## Understanding the Docker Container Lifecycle
+
+### Objective
+
+By the end of this lab, you should understand the complete lifecycle of a Docker container and the difference between an image and a container.
+
+### Lifecycle Covered
+
+```text
+Image
+  ↓
+Create
+  ↓
+Created
+  ↓
+Start
+  ↓
+Running
+  ↓
+Stop
+  ↓
+Exited
+  ↓
+Restart
+  ↓
+Running
+  ↓
+Stop
+  ↓
+Remove
+  ↓
+Container Deleted
+```
+
+The complete hands-on exercise is documented in:
+
+**[`challenge_lab.md`](./challenge_lab.md)**
+
+---
+
+# AI Exercise
+
+Ask ChatGPT:
+
+> **"Draw the complete lifecycle of a Docker container."**
+
+Then:
+
+1. Compare the AI-generated diagram with your own drawing.
+2. Identify which representation makes more sense to you.
+3. Check whether any important lifecycle state or transition is missing.
+4. Improve your own diagram if necessary.
+
+The goal is not to copy the AI's answer. The goal is to **compare, reason, and improve your own understanding.**
+
+---
+
+# Day 2 Success Criteria
+
+By the end of Day 2, I should be able to explain:
+
+* What happens internally when I run `docker run nginx`.
+* How the Docker Client communicates with the Docker Daemon.
+* Where Docker gets an image when it is not available locally.
+* What a Docker Registry and Repository are.
+* What an image tag represents.
+* Why Docker does not download the same image every time.
+* What image layers are.
+* Why image layers are read-only.
+* What the writable container layer is.
+* What Copy-on-Write means.
+* The difference between an image and a container.
+* The difference between `docker create`, `docker start`, `docker stop`, `docker restart`, and `docker rm`.
+* Why a stopped container still appears in `docker ps -a`.
+* Why removing a container does not automatically remove its image.
+
+---
+
+## Day 2 Mission Check
+
+### Core Question
+
+**Can I explain what happens from this command:**
+
+```bash
+docker run nginx
+```
+
+**until the Nginx container starts?**
+
+If yes → **Day 2 mission complete.**
+
+If not → revisit the relevant session and lab before moving to Day 3.

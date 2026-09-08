@@ -1,115 +1,563 @@
-For EVERY command answer
-1 Why did I run this?
-2 What happened internally?
-3 What files changed?
-4 Did Docker create an Image or Container?
+# Session 4 — Basic Docker Hands-On
 
-docker version
+## Session Goal
 
-docker info
+The goal of this session is to move from understanding Docker concepts to actually using Docker commands and observing what Docker does internally.
 
-## docker images
-You run docker images to see if the images stored locally on your machine. 
-Docker queried the local image store and listed the downloaded or built images available for creating containers.
-It displays only information and does not modify anything.
-It does not create anything only displayed information.
+For every command, think about these four questions:
 
-## docker ps
-It queries the docker daemon to display a snapshot of all current running containers on your system.
-You can use this command to check process status such as active health, uptime and identity of your background applications environments. Port verification: you want to see which host ports are mapped to which container ports. ID retrieval.
-What happened internally? Docker client formats your query into a REST API request. The dockerd recieves the request. 
-No files changed. It is entirely read-only operations query, it writes zero data to your disk.
+1. **Why did I run this?**
+2. **What happened internally?**
+3. **What files changed?**
+4. **Did Docker create an image or a container?**
 
-## docker ps -a
-It queries the docker daemon to display a snapshot of all containers on your system regardless of whether they are running, paused or stopped. -a flag stands for all.
-Why did you run it? To see every container that dockerd knows about
-What happened internally? Your Docker client sent a request to the Docker daemon (dockerd), which returned the metadata for every container it manages 
+> **Important:** Docker stores images, containers, metadata, and writable layers in its own managed storage. This is different from modifying your application's source files.
 
-## docker pull hello-world
-docker pull hello-world downloads the official hello-world image from Docker Hub to your local machine. It does not run a container by itself; it only fetches the image so you can use it later.
-What happened internally? 
-Docker checks if hello-world image already present locally and downloads from docker hub. The daemon stored that image so it can be used later with docker run
-What files changed?
-Usually, no project files changed on your machine. Docker may have updated its local image storage and metadata under Docker’s own data directory, but your app/source files were not modified by docker pull.
-Did Docker create an Image or Container?
-Docker is not creating a brand new image it is downloading already published hello-world image
+---
 
-## docker run hello-world
- Why did I run this?
-I run this command to check if the docker is installed and working fine. 
-What happened internally?
-Docker first checked your local machine for the hello-world image if not it downloads from docker hub creates a container run a tiny program inside it and  shows output back to the terminal.
-What files changed?
-Docker may have updated its local image store and created container metadata and writable-layer data under Docker’s own storage area, but your application files were not modified by this command.
-Did Docker create an Image or Container?
-Docker created a container from the hello-world image. 
+# 1. `docker version`
 
-## docker run ubuntu
-Why I used this command?
-I run this command to start a ubuntu-based container it creates the container from the ubuntu image and then tries to execute image's default command, so if the command exits the container will stop
-What happened internally?
-Docker checked if the ubuntu image is present locally. If not it pulled the image and creates a writable container layer, setup the container filesystem, network namespaces and process isolation and launched the default process inside it through the container runtime.
-What files changed?
-Docker downloads the image layers into local storage and created container metadata.
-Did Docker create an Image or Container?
-Docker created the container not a image
+### Why did I run this?
 
-## docker run -it ubuntu bash
-Why I used this command?
-It will starts an ubuntu container and gives you an interactive bash shell inside it. The -t keeps standard input open -t gives you terminal and bash is the command that runs inside the container.
-What happened internally?
-Docker checked if the ubuntu is existed locally, pulled it and then created a new container from that image. It sets up the container filesystem, network and started bash as the main process so you could type commands interactively.
-What files changed?
-Docker downloaded image layers into local storage and created a writable container layers plus metadata for that container.
-Did Docker create an Image or Container?
-Docker created the container not a image. 
+To check the installed Docker version and verify that the Docker client and Docker server/daemon are available.
 
-## docker run nginx
-Why I used this command?
-I  run docker run nginx command when I want a consistent nginx setup inside the container. 
-What happened internally?
-Since it is a web server docker run nginx does not open the browser page by itself it starts the NGINX process inside the container and nginx keeps running the container as the main process so the container stays active.
-What files changed?
-Docker stored image layers and container metadata in its own local storage
-Did docker create image or container?
-Docker created a container not a new image. 
+### What happened internally?
 
-## docker run httpd
-Why I used this command?
-Used docker run httpd command to start a Apache httpd server container from the official httpd image. I used to it to quickly run a web server and test Apache.
-What happened internally?
-Docker checked whether the httpd image was already on your machine. If not it pulled the image from docker hub created new container from it, set up the container's isolated environment and started the Apache process inside it. 
-What files changed?
-No files changed, docker download image layers into its local storage and create container metadata.
-Did docker create image or container?
-Docker created a container not a image. 
+The Docker CLI requested version information from the Docker daemon.
 
-## docker run alpine
-Why I used this command?
-I used this command mainly to start a very small linux container
-What happened internally?
-Docker checks your local image cache for alpine. If missing it downloads the alpine from dockerhub creates a new container from it set it up the container's isolated filesystem and then started the default command inside it.
-What files changed?
+Docker returned information about the client and server versions.
 
-Did docker create image or container?
-Downloaded image file and container metadata into its own local storage and container may have 
+### What files changed?
 
-## docker inspect hello-world
-Why I used this command?
-Used to look at the details of the image or container metadata such as layers, config, entrypoint/CMD, environment, architecture and other low-level details.
-What happened internally?
-Docker looked up the object named hello-world 
-What files changed?
-No files changes, this command only reads docker metadata.
-Did docker create image or container?
-Does not create image or a container. It only shows information about an existing docker object.
+No application files were changed.
 
-## docker history nginx
-Why I used this command?
-Used this command to see how nginx image was built, layer by layer. Can see what commands, files and metadata were added to create that image.
-What happened internally?
-Docker read the local metadata from the nginx and displayed its history entries.
-What files changed?
-This command is read-only and only inspects the image history.
-Did docker create image or container?
-Does not create either. Only shows build history of an existing image
+This is a read-only operation.
+
+### Did Docker create an image or container?
+
+**No.**
+
+---
+
+# 2. `docker info`
+
+### Why did I run this?
+
+To view information about the Docker environment, such as:
+
+- Number of containers
+- Number of images
+- Docker storage driver
+- Docker server information
+- Runtime information
+- Docker configuration
+
+### What happened internally?
+
+The Docker CLI sent a request to the Docker daemon.
+
+The daemon returned information about the Docker environment it manages.
+
+### What files changed?
+
+No application files were changed.
+
+This is a read-only operation.
+
+### Did Docker create an image or container?
+
+**No.**
+
+---
+
+# 3. `docker images`
+
+### Why did I run this?
+
+To see the Docker images currently stored locally on my machine.
+
+### What happened internally?
+
+The Docker client requested the list of images from the Docker daemon.
+
+The daemon queried its local image store and returned the available images.
+
+### What files changed?
+
+No application files were changed.
+
+The command only displays information.
+
+### Did Docker create an image or container?
+
+No.
+
+![](/screenshots/day-1_screenshots/command_dockerimages.png)
+---
+
+# 4. `docker ps`
+
+### Why did I run this?
+
+To see the currently **running containers** managed by Docker.
+
+It can show information such as:
+
+- Container ID
+- Container name
+- Image used
+- Status
+- Ports
+- Uptime
+
+### What happened internally?
+
+The Docker client sent a request to the Docker daemon.
+
+The daemon returned information about the containers that are currently running.
+
+### What files changed?
+
+No application files were changed.
+
+This is a read-only operation.
+
+### Did Docker create an image or container?
+
+**No.**
+
+---
+
+# 5. `docker ps -a`
+
+### Why did I run this?
+
+To see **all containers** managed by Docker, including:
+
+- Running containers
+- Stopped containers
+- Exited containers
+- Created containers
+
+The `-a` flag means **all**.
+
+### What happened internally?
+
+The Docker client sent a request to the Docker daemon.
+
+The daemon returned metadata for all containers it manages.
+
+### What files changed?
+
+No application files were changed.
+
+This is a read-only operation.
+
+### Did Docker create an image or container?
+
+**No.**
+
+---
+
+# 6. `docker pull hello-world`
+
+### Why did I run this?
+
+To download the `hello-world` image from Docker Hub so that I can use it to create a container.
+
+`docker pull` **does not run a container**.
+
+### What happened internally?
+
+Docker:
+
+1. Checks whether the requested image is already available locally.
+2. If it is not available, contacts the configured container registry.
+3. Downloads the required image layers.
+4. Stores those layers in Docker's local image store.
+5. Makes the image available for creating containers.
+
+### What files changed?
+
+My application/source files were not modified.
+
+Docker may update its own internal image storage and metadata.
+
+### Did Docker create an image or container?
+
+Docker **downloaded an already-built image**.
+
+It did not build a new image and did not create a container.
+
+---
+
+# 7. `docker run hello-world`
+
+### Why did I run this?
+
+To verify that Docker is working correctly by running the `hello-world` container.
+
+### What happened internally?
+
+Docker:
+
+1. Checks whether the `hello-world` image exists locally.
+2. If it is missing, Docker pulls it from the registry.
+3. Creates a new container from the image.
+4. Adds the container's writable layer.
+5. Starts the container.
+6. Runs the image's configured command.
+7. The program prints its message.
+8. The main process exits.
+9. The container stops.
+
+The important part is:
+
+```text
+Image
+  ↓
+Container
+  ↓
+Main Process
+  ↓
+Process exits
+  ↓
+Container stops
+````
+
+### What files changed?
+
+My application/source files were not modified.
+
+Docker may update its own image storage and create container metadata and writable-layer data.
+
+### Did Docker create an image or container?
+
+**Container.**
+
+If the image was not already present, Docker also **pulled the existing image**.
+
+---
+
+# 8. `docker run ubuntu`
+
+### Why did I run this?
+
+To start a container using the Ubuntu image and observe what happens when the container's default process exits.
+
+### What happened internally?
+
+Docker:
+
+1. Checks whether the Ubuntu image exists locally.
+2. Pulls the image if it is not available.
+3. Creates a new container from the image.
+4. Creates the container's writable layer.
+5. Sets up the container filesystem and isolation.
+6. Starts the image's default command.
+7. The command exits.
+8. The container stops.
+
+### What files changed?
+
+My application/source files were not modified.
+
+Docker may download image layers and create container metadata and writable-layer data in its own storage.
+
+### Did Docker create an image or container?
+
+**Container.**
+
+If the Ubuntu image was missing locally, Docker also **pulled the existing image**.
+
+---
+
+# 9. `docker run -it ubuntu bash`
+
+### Why did I run this?
+
+To start an Ubuntu container and get an interactive Bash shell inside it.
+
+The options mean:
+
+* `-i` → keeps standard input open
+* `-t` → allocates a terminal
+* `ubuntu` → image to create the container from
+* `bash` → command to run inside the container
+
+### What happened internally?
+
+Docker:
+
+1. Checks whether the Ubuntu image exists locally.
+2. Pulls it if necessary.
+3. Creates a new container from the image.
+4. Creates the container's writable layer.
+5. Sets up the container filesystem and isolation.
+6. Starts `bash` as the container's main process.
+7. Connects the terminal to the Bash process.
+
+This allows me to interact directly with the container.
+
+### What files changed?
+
+My application/source files were not modified.
+
+Docker may download image layers and create container metadata and a writable layer in its own storage.
+
+### Did Docker create an image or container?
+
+**Container.**
+
+---
+
+# 10. `docker run nginx`
+
+### Why did I run this?
+
+To start an Nginx web server inside a Docker container.
+
+### What happened internally?
+
+Docker:
+
+1. Checks whether the Nginx image exists locally.
+2. Pulls it if necessary.
+3. Creates a new container from the Nginx image.
+4. Creates the container's writable layer.
+5. Sets up the container's isolated environment.
+6. Starts the Nginx process.
+7. Nginx continues running as the main process.
+
+Because the main process continues running, the container remains in the **running** state.
+
+### What files changed?
+
+My application/source files were not modified.
+
+Docker may store image layers, container metadata, and writable-layer data in its own storage.
+
+### Did Docker create an image or container?
+
+**Container.**
+
+If the image was missing locally, Docker also **pulled the existing Nginx image**.
+
+---
+
+# 11. `docker run httpd`
+
+### Why did I run this?
+
+To start an Apache HTTP Server container using the official `httpd` image.
+
+This allows me to quickly run and test an Apache web server.
+
+### What happened internally?
+
+Docker:
+
+1. Checks whether the `httpd` image exists locally.
+2. Pulls the image from the registry if necessary.
+3. Creates a new container from the image.
+4. Sets up the container's filesystem and isolation.
+5. Starts the Apache HTTP Server process.
+
+Because the main Apache process continues running, the container normally remains running.
+
+### What files changed?
+
+My application/source files were not modified.
+
+Docker may download image layers and create container metadata and writable-layer data in its own storage.
+
+### Did Docker create an image or container?
+
+**Container.**
+
+If the image was missing locally, Docker also **pulled the existing image**.
+
+---
+
+# 12. `docker run alpine`
+
+### Why did I run this?
+
+To start a container using the lightweight Alpine Linux image.
+
+### What happened internally?
+
+Docker:
+
+1. Checks the local image store for the Alpine image.
+2. Pulls the image if it is missing.
+3. Creates a new container from the image.
+4. Creates the container's writable layer.
+5. Sets up the container filesystem and isolation.
+6. Starts the image's default command.
+
+If the default command exits, the container also stops.
+
+### What files changed?
+
+My application/source files were not modified.
+
+Docker may download image layers and create container metadata and writable-layer data in its own storage.
+
+### Did Docker create an image or container?
+
+**Container.**
+
+If the Alpine image was missing locally, Docker also **pulled the existing image**.
+
+---
+
+# 13. `docker inspect hello-world`
+
+### Why did I run this?
+
+To view detailed metadata about an existing Docker object.
+
+Depending on what object is specified, `docker inspect` can show information such as:
+
+* Configuration
+* Environment
+* Network settings
+* Mounts
+* IDs
+* Architecture
+* Entrypoint
+* CMD
+* Other metadata
+
+### What happened internally?
+
+Docker looks up the object specified by the command and returns its stored metadata.
+
+### What files changed?
+
+No application files changed.
+
+This is a read-only operation.
+
+### Did Docker create an image or container?
+
+**No.**
+
+It only displays information about an existing Docker object.
+
+> **Note:** `docker inspect hello-world` may inspect an image or container depending on what Docker object named `hello-world` exists.
+
+---
+
+# 14. `docker history nginx`
+
+### Why did I run this?
+
+To see how the Nginx image was built layer by layer.
+
+It can show information about:
+
+* Image layers
+* Build instructions
+* Commands associated with layers
+* Layer sizes
+* Image history
+
+### What happened internally?
+
+Docker reads the metadata stored for the Nginx image and displays its image history.
+
+### What files changed?
+
+No application files changed.
+
+This command is read-only.
+
+### Did Docker create an image or container?
+
+**No.**
+
+It only displays the build history of an existing image.
+
+---
+
+# 15. Commands and What They Do
+
+| Command                      | Main Purpose                        | Creates Image? | Creates Container? |
+| ---------------------------- | ----------------------------------- | -------------: | -----------------: |
+| `docker version`             | Show Docker version information     |             No |                 No |
+| `docker info`                | Show Docker environment information |             No |                 No |
+| `docker images`              | List local images                   |             No |                 No |
+| `docker ps`                  | List running containers             |             No |                 No |
+| `docker ps -a`               | List all containers                 |             No |                 No |
+| `docker pull hello-world`    | Download an existing image          |             No |                 No |
+| `docker run hello-world`     | Create and run a container          |            No* |                Yes |
+| `docker run ubuntu`          | Create and run Ubuntu container     |            No* |                Yes |
+| `docker run -it ubuntu bash` | Create interactive Ubuntu container |            No* |                Yes |
+| `docker run nginx`           | Create and run Nginx container      |            No* |                Yes |
+| `docker run httpd`           | Create and run Apache container     |            No* |                Yes |
+| `docker run alpine`          | Create and run Alpine container     |            No* |                Yes |
+| `docker inspect`             | Display object metadata             |             No |                 No |
+| `docker history nginx`       | Display image layer history         |             No |                 No |
+
+`*` If the requested image is not already available locally, `docker run` may first **pull the existing image** from a registry. It does not build a new image.
+
+---
+
+# 16. Important Pattern Observed
+
+The most important pattern from this hands-on session is:
+
+```text
+docker pull
+     ↓
+Download existing image
+     ↓
+Local Image Store
+```
+
+while:
+
+```text
+docker run
+     ↓
+Check for image
+     ↓
+Pull image if necessary
+     ↓
+Create container
+     ↓
+Start main process
+     ↓
+Container runs
+```
+
+And if the main process exits:
+
+```text
+Container
+    ↓
+Main Process exits
+    ↓
+Container becomes Exited
+```
+
+---
+
+# 17. Key Takeaways
+
+* `docker images` shows locally available images.
+* `docker ps` shows running containers.
+* `docker ps -a` shows all containers, including stopped/exited containers.
+* `docker pull` downloads an existing image but does not create a container.
+* `docker run` creates a container from an image and starts it.
+* `docker run` may pull the image first if it is not available locally.
+* A container's lifecycle is closely tied to its **main process**.
+* If the main process exits, the container stops.
+* `-it` is useful for interactive terminal sessions.
+* `docker inspect` displays detailed Docker object metadata.
+* `docker history` shows the layers/history of an image.
+* Docker manages its own internal storage for images, containers, metadata, and writable layers.
+* These commands do not normally modify your application's source files.
+

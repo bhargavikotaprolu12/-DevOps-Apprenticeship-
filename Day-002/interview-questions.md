@@ -114,8 +114,6 @@ We push images to a registry with `docker push` and pull them with `docker pull`
 ---
 
 ## 9. What is Docker Hub?
-
-**Answer:**  
 Docker Hub is Docker's **default public image registry**.
 
 - When you run `docker pull nginx`, Docker actually pulls the image from Docker Hub because it's the default registry.  

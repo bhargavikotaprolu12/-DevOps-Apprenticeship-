@@ -1,21 +1,8 @@
----
-
 # Session 1 – Understanding Docker Architecture
 
 ## Mission
 
 Understand Docker's architecture.
-
-## Concepts Learned
-
-* Docker Client
-* Docker Daemon
-* Docker Engine
-* REST API
-* Unix Domain Socket
-* Container Main Process (PID 1)
-
----
 
 ## What Happens Internally When You Run a Docker Command?
 
@@ -256,9 +243,6 @@ It consists of:
 * Docker REST API
 
 ---
-
-# Interview Questions
-
 ## What is PID 1 in Docker?
 
 PID 1 is the main process running inside a Docker container. It is the first process started when the container launches.
@@ -315,16 +299,6 @@ If the daemon is not running, the Client cannot complete Docker commands and ret
 ## Mission
 
 Understand where Docker images come from.
-
-## Concepts Learned
-
-* Docker Hub
-* Docker Registry
-* Repository
-* Tags
-* Image Cache
-
----
 
 ## What Is a Docker Registry?
 

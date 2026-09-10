@@ -1,12 +1,8 @@
-# Day 2 – Challenge Lab: Docker Container Lifecycle (Session 4 & 5)
+## Session 4 – Understanding the Docker Container Lifecycle
 
-**Date:** 31 July 2026  
 **Objective:**  
 By the end of this lab, you should understand the complete lifecycle of a container and the difference between an image and a container.
 
----
-
-## Session 4 – Understanding the Docker Container Lifecycle
 
 ### Part 1 – Check Existing Images
 

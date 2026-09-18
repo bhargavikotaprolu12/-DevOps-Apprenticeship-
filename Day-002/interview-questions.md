@@ -2,6 +2,7 @@
 
 This file contains common Docker interview questions and concise answers, written without depending on Google during the interview.
 
+
 ---
 
 ## 1. What happens internally when Docker receives `docker run`?

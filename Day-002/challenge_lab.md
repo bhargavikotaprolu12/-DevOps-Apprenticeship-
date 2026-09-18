@@ -14,6 +14,7 @@ docker images
 
 **Purpose:**  
 Shows the local Docker image inventory and their size usage. It helps you see which images are installed, how much disk they occupy, and whether they are currently unused.
+
 ![docker images](../screenshots/day-2_screenshots/day-2-dockerimagescommand.png)
 **Observation:**
 
@@ -72,7 +73,7 @@ docker ps
 - The status changes from `Created` to `Up`.  
 - The container is now running.
 
-**Reflection – What changed between `docker create` and `docker start`?**
+**What changed between `docker create` and `docker start`?**
 
 `docker create` only creates the container without starting it; it needs the `docker start` command to actually start the container’s main process.
 

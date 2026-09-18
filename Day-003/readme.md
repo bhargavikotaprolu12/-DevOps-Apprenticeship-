@@ -1,8 +1,5 @@
 # Day 3
 
-## Date
-
-27 June 2026
 
 ## Mission
 
@@ -74,7 +71,7 @@ Understanding:
 	• Why unnecessary files should not be included
 
 ## Build Flow
-
+```
 Application Source Code
         ↓
 Dockerfile
@@ -86,6 +83,7 @@ Docker Image
 docker run
         ↓
 Container
+```
 
 ## Hands-on Lab
 
@@ -95,22 +93,15 @@ Objective
 
 By the end of this lab, I should be able to create a Dockerfile, build my own Docker Image, and run a container from that image.
 
-Lab Covered:
-	• Created a project directory
-	• Created a Dockerfile
-	• Used FROM
-	• Used WORKDIR
-	• Used COPY
-	• Used RUN
-	• Built an image using docker build
-	• Ran a container from the image
-	• Compared Dockerfile instructions with resulting image layers
-	• Created separate examples using CMD and ENTRYPOINT
-	• Tested command overriding
-	• Investigated Docker Build Context
+### Build Cache
+Objective
+
+Observed Docker reuse previously completed build steps.
+
+Then changed application code and rebuilt the image to observe which steps were reused and which needed to run again.
 
 The complete hands-on exercise is documented in:
-challenge_lab.md
+hands_on.md
 
 ## Break-It Challenge
 
@@ -131,23 +122,6 @@ A developer says:
 
 My task is to investigate why the container exits and determine whether the problem is related to the container's main process, CMD, or ENTRYPOINT.
 
-## AI Exercise
-
-Ask ChatGPT:
-
-"Explain the complete Docker image build process from docker build . to the final image."
-
-Then ask:
-
-"Explain Docker Build Context using a real-world analogy."
-
-Then:
-	1. Compare the explanations with my own understanding.
-	2. Identify anything I misunderstood.
-	3. Explain Build Context in my own words.
-	4. Explain the difference between CMD and ENTRYPOINT without copying the AI's explanation.
-
-The goal is not to copy the AI's answer. The goal is to use AI to identify gaps in my understanding.
 
 ## Day 3 Success Criteria
 
@@ -171,3 +145,5 @@ By the end of Day 3, I should be able to explain:
 	• Why Dockerfile instruction order matters.
 	• How to diagnose a basic Dockerfile build failure.
 	• Why a container can build successfully but exit immediately.
+
+

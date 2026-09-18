@@ -425,24 +425,10 @@ This:
 ---
 
 # Session 3 – What Is Inside a Docker Image?
+## By the end of this session, you should be able to answer:
+When I build a Docker image, where are the files stored, why does Docker use layers, and what happens when a running container changes a file?
 
-## Mission
-
-Understand what is inside a Docker image.
-
-## Concepts Learned
-
-* Image Layers
-* Read-only Layers
-* Writable Container Layer
-* Copy-on-Write
-* `docker history`
-* `docker inspect`
-* Image Storage
-
----
-
-# Image vs Container
+## Image vs Container
 
 Think about the relationship between a class and an object.
 
@@ -467,7 +453,7 @@ For example, if you run nginx three separate times, you get three independent co
 
 ---
 
-# The Magic of Docker Layers
+## The Magic of Docker Layers
 
 A Docker image is not one giant monolithic file.
 
@@ -526,25 +512,17 @@ Docker stacks these layers to form the final image.
 ![alt text](../screenshots/day-2_screenshots/day-2_docker_layers_stack.png)
 ---
 
-# Why Do Layers Matter?
+## Why Do Layers Matter?
 
-## 1. Reusability
+1. Reusability: Layers can be reused, which saves disk space.
 
-Layers can be reused, which saves disk space.
+2. Caching: Unchanged layers can be reused during image builds, which makes rebuilds faster.
 
-## 2. Caching
-
-Unchanged layers can be reused during image builds, which makes rebuilds faster.
-
-## 3. Immutability
-
-Image layers are read-only and cannot be modified after they are built.
-
-If changes are required, Docker creates a new image with new layers.
+3. Immutability: Image layers are read-only and cannot be modified after they are built. If changes are required, Docker creates a new image with new layers.
 
 ---
 
-# Layer Caching Example
+## Layer Caching Example
 
 Consider:
 

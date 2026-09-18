@@ -98,8 +98,6 @@ Yes. A single Docker image can be used to create any number of containers. For e
 ---
 
 ## 8. Where are images downloaded from?
-
-**Answer:**  
 Docker images are downloaded from a **Docker registry**, which is a service that stores and distributes images. Examples include:
 
 - Docker Hub  

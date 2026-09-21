@@ -1,0 +1,139 @@
+### What is a Docker image layer?
+
+A Docker image is built from multiple layers representing filesystem changes made during the image build. These layers are generally read-only and can be reused between images/builds when applicable.
+
+### Why does Docker use layers?
+
+Layers allow Docker to reuse unchanged parts of images and support build caching, which can reduce storage usage and build time.
+
+### What is the relationship between layers and build cache?
+
+Docker can reuse previously built layers or build results when the relevant inputs have not changed. If a step changes or its cache becomes invalid, later dependent steps may also need to be rebuilt.
+
+### What is the difference between an image layer and a container writable layer?
+
+Image layers are read-only and form the image. A running container gets its own writable layer on top of the image layers for filesystem changes made by that container.
+
+### What is Copy-on-Write?
+
+Copy-on-Write allows containers to share the underlying read-only image layers. When a container modifies a file, the modification is handled in the container's writable layer rather than changing the original image layer.
+
+### What is Docker build cache?
+Docker build cache allows Docker to reuse previously built results when the corresponding build step and its inputs have not changed, reducing build time.
+
+### Why does Dockerfile instruction order matter?
+
+Docker processes instructions from top to bottom. If an earlier step changes, subsequent steps may need to be rebuilt, so stable and expensive steps are usually placed before frequently changing application code.
+
+### Why copy requirements.txt separately?
+
+To allow Docker to cache the dependency installation step. If only application code changes, Docker can reuse the dependency-installation layer.
+
+### What happens if requirements.txt changes?
+
+The COPY requirements.txt step changes, so the dependency installation step must run again. Subsequent steps may also need to be rebuilt.
+
+### What is the basic Dockerfile optimization strategy?
+
+> **Stable → Expensive → Frequently Changing**
+
+Place relatively stable inputs and expensive operations earlier, and frequently changing application files later.
+
+### What is a cache hit?
+
+A cache hit means Docker found a valid previously built result and can reuse it.
+
+### What is a cache miss?
+
+A cache miss means Docker cannot reuse the previous result and needs to execute the build step again.
+
+### Why does instruction order matter?
+
+Docker evaluates the Dockerfile from top to bottom. A change in an earlier step can invalidate the cache for later dependent steps.
+
+### What is Docker build context?
+
+The build context is the set of files and directories available to Docker during an image build.
+
+### What does `.` mean in `docker build -t myapp .`?
+
+It specifies the current directory as the build context.
+
+### Why can a large build context be a problem?
+
+It can increase the amount of data processed or transferred during the build, slow down builds, and make unnecessary files available to the build.
+
+### What does `.dockerignore` do?
+
+It specifies files and directories that should be excluded from the Docker build context.
+
+### Is `.dockerignore` the same as `.gitignore`?
+
+No.
+
+- `.gitignore` → controls what Git ignores.
+- `.dockerignore` → controls what Docker excludes from the build context.
+
+### Should `.dockerignore` be used for secret management?
+
+No. It can help prevent files from entering the build context, but it is not a substitute for proper secret management.
+
+
+### What is the difference between `COPY` and `ADD`?
+
+`COPY` is primarily for straightforward file and directory copying.
+
+`ADD` provides additional behavior, including local tar archive extraction and certain URL-related behavior.
+
+### Which should you normally use for copying files?
+
+Prefer `COPY` for ordinary file and directory copying because it is simple and explicit.
+
+### Why use multi-stage builds?
+
+Good answer:
+
+Multi-stage builds separate the build environment from the runtime environment. We can use a larger image containing compilers and build tools in the builder stage, then copy only the required application artifacts into a smaller runtime image. This can reduce image size and unnecessary tools in production.
+
+That's a much better answer than simply:
+
+"It makes the Docker image smaller."
+
+### What is the difference between a builder image and a runtime image?
+
+Builder image:Contains tools required to build the application.
+
+Example:JDK, compiler, source code, build tools.
+
+Runtime image: Contains what is required to run the application.
+
+Example:JRE and compiled application
+
+### What does `AS builder` do?
+
+It gives the build stage a name:
+
+    FROM eclipse-temurin:17-jdk-alpine AS builder
+
+This name can then be used to copy artifacts from that stage.
+
+### What does COPY --from=builder do?
+
+Answer:
+
+It copies files from the stage named builder into the current build stage
+
+### Does the second FROM inherit the first stage?
+
+Answer:
+
+No. Each FROM starts a new build stage. Files are transferred between stages explicitly using COPY --from.
+
+### Why use --no-cache?
+
+Answer:
+
+It forces Docker to rebuild without reusing the existing build cache, which is useful when testing or troubleshooting Dockerfile changes.
+
+
+
